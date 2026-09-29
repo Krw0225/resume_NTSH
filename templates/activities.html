@@ -19,84 +19,144 @@
             color: #333;
         }
 
+        /* 頁面標題 */
+
         .page-header {
             text-align: center;
-            padding: 70px 20px 40px;
+            padding: 80px 20px 50px;
         }
 
         .page-header h1 {
-            font-size: 42px;
-            margin-bottom: 15px;
+            font-size: 44px;
+            margin-bottom: 18px;
+            color: #222;
         }
 
         .page-header p {
             font-size: 18px;
             color: #666;
+            line-height: 1.8;
         }
 
+        /* 活動區域 */
+
         .activities {
-            max-width: 1100px;
+            max-width: 1150px;
             margin: auto;
             padding: 20px 20px 70px;
         }
 
+        /* 活動卡片 */
+
         .activity-card {
             display: flex;
             align-items: center;
-            gap: 40px;
+            gap: 45px;
 
-            background: white;
-            padding: 25px;
-            margin-bottom: 35px;
+            background: #fff;
+            padding: 30px;
 
-            border-radius: 18px;
+            margin-bottom: 40px;
 
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 20px;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.08);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
         }
+
+        .activity-card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.13);
+        }
+
+        /* 偶數活動圖片放右邊 */
 
         .activity-card:nth-child(even) {
             flex-direction: row-reverse;
         }
 
+        /* 活動圖片 */
+
         .activity-image {
-            width: 42%;
-            height: 260px;
+            width: 43%;
+            height: 280px;
 
             object-fit: cover;
 
-            border-radius: 15px;
+            border-radius: 16px;
+
+            transition: transform 0.4s ease;
         }
+
+        .activity-card:hover .activity-image {
+            transform: scale(1.03);
+        }
+
+        /* 文字內容 */
 
         .activity-content {
             flex: 1;
         }
 
         .activity-date {
+            display: inline-block;
+
             color: #777;
+
             font-size: 15px;
+
+            margin-bottom: 5px;
         }
 
         .activity-content h2 {
-            font-size: 28px;
-            margin: 10px 0 15px;
+            font-size: 30px;
+
+            margin: 8px 0 18px;
+
+            color: #222;
         }
 
         .activity-content p {
             font-size: 17px;
-            line-height: 1.9;
+
+            line-height: 2;
+
+            color: #555;
+
+            margin-bottom: 15px;
         }
+
+        /* 小標題 */
+
+        .activity-content strong {
+            color: #333;
+        }
+
+        /* 標籤 */
 
         .activity-tag {
             display: inline-block;
 
-            margin-top: 15px;
-            padding: 6px 15px;
+            margin-top: 8px;
+
+            padding: 7px 17px;
 
             background: #eef2f7;
-            border-radius: 20px;
+
+            color: #555;
+
+            border-radius: 30px;
 
             font-size: 14px;
         }
+
+        /* 返回首頁 */
 
         .back-button {
             display: block;
@@ -105,51 +165,77 @@
 
             margin: 10px auto 60px;
 
-            padding: 10px 25px;
+            padding: 12px 28px;
 
             background: #333;
+
             color: white;
 
             text-decoration: none;
 
-            border-radius: 8px;
+            border-radius: 10px;
+
+            transition: 0.3s;
         }
 
         .back-button:hover {
             background: #555;
+
+            transform: translateY(-2px);
         }
+
+        /* 頁尾 */
 
         footer {
             text-align: center;
+
             padding: 30px;
 
             background: #222;
+
             color: white;
         }
-
 
         /* 手機版 */
 
         @media (max-width: 768px) {
 
-            .activity-card,
-            .activity-card:nth-child(even) {
-                flex-direction: column;
-            }
-
-            .activity-image {
-                width: 100%;
-                height: 220px;
+            .page-header {
+                padding: 60px 20px 35px;
             }
 
             .page-header h1 {
                 font-size: 34px;
             }
 
-            .activity-content h2 {
-                font-size: 24px;
+            .page-header p {
+                font-size: 16px;
             }
 
+            .activity-card,
+            .activity-card:nth-child(even) {
+                flex-direction: column;
+
+                gap: 25px;
+
+                padding: 20px;
+            }
+
+            .activity-image {
+                width: 100%;
+
+                height: 230px;
+            }
+
+            .activity-content h2 {
+                font-size: 25px;
+            }
+
+            .activity-content p {
+                font-size: 16px;
+
+                line-height: 1.9;
+            }
         }
 
     </style>
@@ -191,7 +277,7 @@
 
     <p>
         課堂之外的學習與成長，
-        讓我探索興趣、培養能力，也認識不同的人。
+        讓我探索興趣、培養能力，也累積不同的人生經驗。
     </p>
 
 </header>
@@ -202,14 +288,13 @@
 <main class="activities">
 
 
-    <!-- 活動 1 -->
+    <!-- 活動 1：籃球 -->
 
     <div class="activity-card">
 
         <img
-            src="{{ url_for('static',
-            filename='images/activity1.jpg') }}"
-            alt="社團活動"
+            src="{{ url_for('static', filename='images/activity1.jpg') }}"
+            alt="籃球社團活動"
             class="activity-image"
         >
 
@@ -222,17 +307,27 @@
             <h2>🏀 籃球社團</h2>
 
             <p>
-加入籃球社是我高中三年非常寶貴的歷程，這裡不僅讓我培養了規律運動的習慣，更深化了我對「團隊合作」的理解。
+                加入籃球社是我高中生活中非常重要的一段經歷。
+                透過固定的練習與比賽，我培養了運動習慣，
+                也更加了解團隊合作的重要性。
+            </p>
 
-團隊溝通與角色定位：在球隊中，我主要擔任控球後衛/前鋒的角色。我明白個人得分並非唯一目標，更重要的是透過傳球與跑位帶動全隊節奏。這讓我學會在團隊中認清自身定位，並隨時與隊友保持溝通。
+            <p>
+                在球隊中，我曾擔任控球後衛與前鋒的角色。
+                我逐漸了解到，一場比賽的勝負並不只是依靠
+                個人的得分能力，而是需要隊員彼此溝通、
+                傳球、跑位與互相支援。
+            </p>
 
-堅持不懈與挫折復原力：高二參與校際交流賽時，我們曾面臨落後的劣勢。在訓練與比賽過程中，我學會了即使陷入困境也不輕言放棄，這種「不到最後一刻絕不服輸」的運動員精神，成為我面對高中課業的最大動力。
-
-均衡發展與自律：高三課業繁忙，但我堅持運用社團時間進行自主訓練。運動幫助我維持良好的體能與精神狀態，養成高度自律的作息，實現了課業與社團活動的平衡。
+            <p>
+                <strong>我的收穫：</strong>
+                團隊合作、溝通能力、抗壓能力與自律。
+                即使面對比賽落後或訓練上的挫折，
+                我也學會保持耐心並持續努力。
             </p>
 
             <span class="activity-tag">
-                社團活動
+                🏀 社團活動
             </span>
 
         </div>
@@ -240,14 +335,13 @@
     </div>
 
 
-    <!-- 活動 2 -->
+    <!-- 活動 2：志工 -->
 
     <div class="activity-card">
 
         <img
-            src="{{ url_for('static',
-            filename='images/activity2.jpg') }}"
-            alt="志工服務"
+            src="{{ url_for('static', filename='images/activity2.jpg') }}"
+            alt="志工服務活動"
             class="activity-image"
         >
 
@@ -260,13 +354,25 @@
             <h2>❤️ 志工服務</h2>
 
             <p>
-                參與學校安排的志工服務，協助活動準備、
-                場地整理與服務工作。透過實際參與，
-                我學習到責任感、耐心以及與他人合作的重要性。
+                參與學校安排的志工服務活動，主要協助活動前期
+                的準備工作、場地整理以及現場服務。
+            </p>
+
+            <p>
+                在服務過程中，我發現許多看似簡單的工作，
+                都需要耐心與責任感才能完成。例如活動開始前
+                必須確認場地與物品是否準備完整，活動結束後
+                也需要將環境整理乾淨。
+            </p>
+
+            <p>
+                <strong>我的收穫：</strong>
+                透過服務他人，我學習到主動協助的重要性，
+                也更加懂得珍惜自己所擁有的環境與資源。
             </p>
 
             <span class="activity-tag">
-                志工服務
+                ❤️ 志工服務
             </span>
 
         </div>
@@ -274,13 +380,12 @@
     </div>
 
 
-    <!-- 活動 3 -->
+    <!-- 活動 3：AI 科技營隊 -->
 
     <div class="activity-card">
 
         <img
-            src="{{ url_for('static',
-            filename='images/activity3.jpg') }}"
+            src="{{ url_for('static', filename='images/activity3.jpg') }}"
             alt="AI科技營隊"
             class="activity-image"
         >
@@ -294,14 +399,26 @@
             <h2>🤖 AI 科技營隊</h2>
 
             <p>
-                參加人工智慧與程式設計相關營隊，
-                接觸 Python、人工智慧與生成式 AI。
-                透過實際操作，我開始對資訊科技產生
-                更濃厚的興趣。
+                參加人工智慧與程式設計相關營隊，是我開始接觸
+                AI 與資訊科技的重要經驗。
+            </p>
+
+            <p>
+                活動中接觸到 Python 程式設計、人工智慧以及
+                生成式 AI 等相關內容。透過實際操作，我發現
+                程式設計不只是寫程式碼，更重要的是思考問題、
+                找出解決方法，再一步一步完成作品。
+            </p>
+
+            <p>
+                <strong>我的收穫：</strong>
+                培養邏輯思考能力，也讓我對資訊科技產生
+                更濃厚的興趣，並開始思考未來是否能朝
+                資訊工程、AI 或科技相關領域發展。
             </p>
 
             <span class="activity-tag">
-                科技學習
+                🤖 科技學習
             </span>
 
         </div>
@@ -309,14 +426,13 @@
     </div>
 
 
-    <!-- 活動 4 -->
+    <!-- 活動 4：企業參訪 -->
 
     <div class="activity-card">
 
         <img
-            src="{{ url_for('static',
-            filename='images/activity4.jpg') }}"
-            alt="企業參訪"
+            src="{{ url_for('static', filename='images/activity4.jpg') }}"
+            alt="企業參訪活動"
             class="activity-image"
         >
 
@@ -329,14 +445,25 @@
             <h2>🏢 企業參訪</h2>
 
             <p>
-                參加企業參訪活動，了解資訊科技在實際
-                工作環境中的應用。透過與業界人員交流，
-                我更加了解未來職涯需要的能力，也開始
-                思考自己未來希望發展的方向。
+                透過企業參訪，我第一次有機會近距離了解
+                資訊科技在真實工作環境中的應用。
+            </p>
+
+            <p>
+                參訪過程中，我觀察到不同職位需要不同的專業能力，
+                除了技術能力之外，溝通、團隊合作、問題解決能力
+                以及持續學習的能力也非常重要。
+            </p>
+
+            <p>
+                <strong>我的收穫：</strong>
+                這次參訪讓我對未來職涯有更具體的想像，
+                也讓我了解到學校所學的知識可以如何應用在
+                真實的工作環境中。
             </p>
 
             <span class="activity-tag">
-                校外參訪
+                🏢 校外參訪
             </span>
 
         </div>
@@ -344,14 +471,13 @@
     </div>
 
 
-    <!-- 活動 5 -->
+    <!-- 活動 5：校內競賽 -->
 
     <div class="activity-card">
 
         <img
-            src="{{ url_for('static',
-            filename='images/activity5.jpg') }}"
-            alt="校內競賽"
+            src="{{ url_for('static', filename='images/activity5.jpg') }}"
+            alt="校內競賽活動"
             class="activity-image"
         >
 
@@ -364,14 +490,26 @@
             <h2>🏆 校內競賽</h2>
 
             <p>
-                與同學組隊參加校內競賽，從題目發想、
-                資料蒐集到成果展示，都由團隊共同完成。
-                這次經驗讓我學習如何分工合作，也提升了
-                解決問題與表達想法的能力。
+                與同學組隊參加校內競賽，從最初的題目發想，
+                到資料蒐集、內容製作以及最後的成果展示，
+                都由團隊共同完成。
+            </p>
+
+            <p>
+                在團隊合作的過程中，我們需要討論每個人的想法，
+                再依照成員的能力進行分工。如果遇到意見不同，
+                就必須透過溝通找出大家都能接受的方法。
+            </p>
+
+            <p>
+                <strong>我的收穫：</strong>
+                這次活動讓我學會如何分配工作、管理時間，
+                同時也提升了我的問題解決能力、表達能力
+                與團隊合作能力。
             </p>
 
             <span class="activity-tag">
-                競賽活動
+                🏆 競賽活動
             </span>
 
         </div>
