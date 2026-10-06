@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>世界計畫｜Project SEKAI｜郭睿文</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Noto Sans TC", Arial, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd, #ffffff);
+            color: #333;
+        }
+
+        /* 頁首 */
+
+        header {
+            background: linear-gradient(135deg, #1565c0, #42a5f5);
+            color: white;
+            text-align: center;
+            padding: 55px 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        header p {
+            margin-top: 12px;
+            font-size: 17px;
+        }
+
+        /* 主內容 */
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        /* 返回首頁 */
+
+        .back {
+            display: inline-block;
+            margin-bottom: 30px;
+            padding: 12px 22px;
+            background-color: #1565c0;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .back:hover {
+            background-color: #0d47a1;
+            transform: translateY(-2px);
+        }
+
+        /* 介紹 */
+
+        .intro {
+            background-color: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            margin-bottom: 35px;
+        }
+
+        .intro h2 {
+            color: #1565c0;
+            margin-top: 0;
+        }
+
+        .intro p {
+            line-height: 1.9;
+        }
+
+        /* 團體區域 */
+
+        .unit {
+            background-color: white;
+            border-radius: 20px;
+            margin-bottom: 35px;
+            padding: 30px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.09);
+            overflow: hidden;
+        }
+
+        .unit-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .unit-icon {
+            font-size: 45px;
+        }
+
+        .unit-title h2 {
+            margin: 0;
+            color: #1565c0;
+            font-size: 28px;
+        }
+
+        .unit-title span {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .unit-description {
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* 角色卡片 */
+
+        .members {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            margin-top: 25px;
+        }
+
+        .member {
+            background: #f5faff;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #e3f2fd;
+            transition: 0.3s;
+        }
+
+        .member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+        }
+
+        .member-icon {
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        .member h3 {
+            margin: 8px 0;
+            color: #1565c0;
+        }
+
+        .member p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        /* 官方圖片按鈕 */
+
+        .official-link {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 20px;
+            background: #1565c0;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .official-link:hover {
+            background: #0d47a1;
+            transform: translateY(-2px);
+        }
+
+        /* 學習心得 */
+
+        .reflection {
+            background: linear-gradient(135deg, #e3f2fd, #ffffff);
+            padding: 30px;
+            border-radius: 18px;
+            margin-top: 20px;
+        }
+
+        .reflection h2 {
+            color: #1565c0;
+            margin-top: 0;
+        }
+
+        .reflection p {
+            line-height: 1.9;
+        }
+
+        /* 頁尾 */
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* 手機版 */
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 28px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .unit {
+                padding: 22px;
+            }
+
+            .unit-title h2 {
+                font-size: 23px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- 頁首 -->
+
+    <header>
+
+        <h1>🌍 世界計畫</h1>
+
+        <p>
+            Project SEKAI｜角色與團體介紹
+        </p>
+
+    </header>
+
+
+    <div class="container">
+
+        <!-- 返回首頁 -->
+
+        <a href="/" class="back">
+            ← 返回學習歷程首頁
+        </a>
+
+
+        <!-- 世界計畫介紹 -->
+
+        <div class="intro">
+
+            <h2>🎵 什麼是世界計畫？</h2>
+
+            <p>
+                《世界計畫 繽紛舞台！ feat. 初音未來》
+                （Project SEKAI）是一款以音樂、角色故事與虛擬歌手為主題的作品。
+            </p>
+
+            <p>
+                故事中，不同的少年少女因為各自的「想法」與「願望」，
+                進入不同的「SEKAI」，並與虛擬歌手一起面對自己的問題。
+            </p>
+
+            <p>
+                本頁整理《Project SEKAI》的主要團體與角色，
+                讓我可以透過自己喜歡的作品了解角色設定、團體特色，
+                同時練習整理資料與製作網頁。
+            </p>
+
+        </div>
+
+
+        <!-- Leo/need -->
+
+        <div class="unit">
+
+            <div class="unit-title">
+
+                <div class="unit-icon">
+                    🎸
+                </div>
+
+                <div>
+                    <h2>Leo/need</h2>
+                    <span>幼馴染樂團</span>
+                </div>
+
+            </div>
+
+            <p class="unit-description">
+                Leo/need 是由青梅竹馬組成的樂團。
+                四人曾經因為一些事情而疏遠，後來重新聚在一起，
+                透過音樂重新建立彼此之間的羈絆。
+            </p>
+
+            <div class="members">
+
+                <div class="member">
+                    <div class="member-icon">🎤</div>
+                    <h3>星乃一歌</h3>
+                    <p>Leo/need 的主唱與吉他手，喜歡初音未來的歌曲。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">🎹</div>
+                    <h3>天馬咲希</h3>
+                    <p>個性開朗活潑，希望和朋友一起享受校園生活。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">🥁</div>
+                    <h3>望月穗波</h3>
+                    <p>溫柔可靠，擔任樂團的鼓手。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">🎸</div>
+                    <h3>日野森志步</h3>
+                    <p>個性認真，對音樂有自己的堅持。</p>
+                </div>
+
+            </div>
+
+            <a
+                class="official-link"
+                href="https://pjsekai.sega.jp/character/unite01/index.html"
+                target="_blank">
+                📷 查看官方角色圖片
+            </a>
+
+        </div>
+
+
+        <!-- MORE MORE JUMP -->
+
+        <div class="unit">
+
+            <div class="unit-title">
+
+                <div class="unit-icon">
+                    🌸
+                </div>
+
+                <div>
+                    <h2>MORE MORE JUMP！</h2>
+                    <span>偶像團體</span>
+                </div>
+
+            </div>
+
+            <p class="unit-description">
+                MORE MORE JUMP！是一個以偶像活動為核心的團體。
+                成員們有著不同的偶像經歷，
+                為了再次站上舞台而努力。
+            </p>
+
+            <div class="members">
+
+                <div class="member">
+                    <div class="member-icon">🌟</div>
+                    <h3>花里實乃理</h3>
+                    <p>充滿活力的少女，為了成為偶像而持續努力。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">💙</div>
+                    <h3>桐谷遙</h3>
+                    <p>曾經是人氣偶像，對自己的未來有新的思考。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">💗</div>
+                    <h3>桃井愛莉</h3>
+                    <p>經驗豐富的偶像，個性直率且十分認真。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">💧</div>
+                    <h3>日野森雫</h3>
+                    <p>氣質溫柔，曾經是知名偶像團體的成員。</p>
+                </div>
+
+            </div>
+
+            <a
+                class="official-link"
+                href="https://pjsekai.sega.jp/character/unite02/index.html"
+                target="_blank">
+                📷 查看官方角色圖片
+            </a>
+
+        </div>
+
+
+        <!-- Vivid BAD SQUAD -->
+
+        <div class="unit">
+
+            <div class="unit-title">
+
+                <div class="unit-icon">
+                    🎤
+                </div>
+
+                <div>
+                    <h2>Vivid BAD SQUAD</h2>
+                    <span>街頭音樂團體</span>
+                </div>
+
+            </div>
+
+            <p class="unit-description">
+                Vivid BAD SQUAD 是以街頭音樂為主要活動的團體。
+                四人為了超越傳說中的音樂活動而努力，
+                希望完成屬於自己的目標。
+            </p>
+
+            <div class="members">
+
+                <div class="member">
+                    <div class="member-icon">🐹</div>
+                    <h3>小豆澤心羽</h3>
+                    <p>原本較為害羞，但因為音樂逐漸找到自己的自信。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">🎤</div>
+                    <h3>白石杏</h3>
+                    <p>擁有強烈的音樂夢想，希望超越父親留下的傳說。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">🔥</div>
+                    <h3>東雲彰人</h3>
+                    <p>對音樂非常執著，為了目標持續鍛鍊自己。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">🎧</div>
+                    <h3>青柳冬彌</h3>
+                    <p>擁有優秀的音樂能力，和彰人組成搭檔。</p>
+                </div>
+
+            </div>
+
+            <a
+                class="official-link"
+                href="https://pjsekai.sega.jp/character/unite03/index.html"
+                target="_blank">
+                📷 查看官方角色圖片
+            </a>
+
+        </div>
+
+
+        <!-- Wonderlands Showtime -->
+
+        <div class="unit">
+
+            <div class="unit-title">
+
+                <div class="unit-icon">
+                    🎪
+                </div>
+
+                <div>
+                    <h2>Wonderlands×Showtime</h2>
+                    <span>音樂劇與舞台表演</span>
+                </div>
+
+            </div>
+
+            <p class="unit-description">
+                Wonderlands×Showtime 是以舞台表演為主題的團體。
+                他們希望帶給觀眾快樂與笑容，
+                並在一次次的演出中尋找屬於自己的舞台。
+            </p>
+
+            <div class="members">
+
+                <div class="member">
+                    <div class="member-icon">👑</div>
+                    <h3>天馬司</h3>
+                    <p>充滿自信的舞台演員，以成為世界第一的明星為目標。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">🌈</div>
+                    <h3>鳳えむ</h3>
+                    <p>活潑開朗，最喜歡看到大家露出笑容。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">🎤</div>
+                    <h3>草薙寧寧</h3>
+                    <p>擁有優秀歌唱能力的少女，不太擅長與人交流。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">🧪</div>
+                    <h3>神代類</h3>
+                    <p>充滿創意的舞台製作人，喜歡設計特殊的表演。</p>
+                </div>
+
+            </div>
+
+            <a
+                class="official-link"
+                href="https://pjsekai.sega.jp/character/unite04/index.html"
+                target="_blank">
+                📷 查看官方角色圖片
+            </a>
+
+        </div>
+
+
+        <!-- 25時 -->
+
+        <div class="unit">
+
+            <div class="unit-title">
+
+                <div class="unit-icon">
+                    🌙
+                </div>
+
+                <div>
+                    <h2>25時、ナイトコードで。</h2>
+                    <span>網路音樂創作團體</span>
+                </div>
+
+            </div>
+
+            <p class="unit-description">
+                25時、ナイトコードで。是一個透過網路進行音樂創作的團體。
+                成員們原本互不認識，
+                後來因為音樂與各自的想法而逐漸產生連結。
+            </p>
+
+            <div class="members">
+
+                <div class="member">
+                    <div class="member-icon">🎼</div>
+                    <h3>宵崎奏</h3>
+                    <p>以創作音樂為主要活動，希望透過自己的歌曲拯救他人。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">❄️</div>
+                    <h3>朝比奈真冬</h3>
+                    <p>外表沉穩優秀，但內心有著複雜的情緒。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">🎨</div>
+                    <h3>東雲繪名</h3>
+                    <p>喜歡繪畫，希望透過作品獲得他人的認可。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">🎀</div>
+                    <h3>曉山瑞希</h3>
+                    <p>擅長影像與設計，個性活潑並重視自己的創作。</p>
+                </div>
+
+            </div>
+
+            <a
+                class="official-link"
+                href="https://pjsekai.sega.jp/character/unite05/index.html"
+                target="_blank">
+                📷 查看官方角色圖片
+            </a>
+
+        </div>
+
+
+        <!-- Virtual Singer -->
+
+        <div class="unit">
+
+            <div class="unit-title">
+
+                <div class="unit-icon">
+                    🎤
+                </div>
+
+                <div>
+                    <h2>Virtual Singer</h2>
+                    <span>虛擬歌手</span>
+                </div>
+
+            </div>
+
+            <p class="unit-description">
+                Virtual Singer 是《Project SEKAI》中的虛擬歌手。
+                初音未來、鏡音リン、鏡音レン、巡音ルカ、
+                MEIKO、KAITO 等角色會在不同的 SEKAI 中
+                以不同的樣貌與少年少女們相遇。
+            </p>
+
+            <div class="members">
+
+                <div class="member">
+                    <div class="member-icon">💙</div>
+                    <h3>初音未來</h3>
+                    <p>世界知名的虛擬歌手，以藍綠色雙馬尾造型聞名。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">💛</div>
+                    <h3>鏡音リン</h3>
+                    <p>擁有明亮活潑歌聲的虛擬歌手。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">💛</div>
+                    <h3>鏡音レン</h3>
+                    <p>具有少年感與充滿力量歌聲的虛擬歌手。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">💗</div>
+                    <h3>巡音ルカ</h3>
+                    <p>擁有成熟歌聲與粉紅色長髮的虛擬歌手。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">❤️</div>
+                    <h3>MEIKO</h3>
+                    <p>知名虛擬歌手，具有成熟而有力量的歌聲。</p>
+                </div>
+
+                <div class="member">
+                    <div class="member-icon">💙</div>
+                    <h3>KAITO</h3>
+                    <p>男性虛擬歌手，以深沉穩定的歌聲受到喜愛。</p>
+                </div>
+
+            </div>
+
+            <a
+                class="official-link"
+                href="https://pjsekai.sega.jp/character/virtualsinger/miku/index.html"
+                target="_blank">
+                📷 查看官方初音未來資料
+            </a>
+
+        </div>
+
+
+        <!-- 我的學習心得 -->
+
+        <div class="reflection">
+
+            <h2>📝 我的學習心得</h2>
+
+            <p>
+                我會選擇研究《Project SEKAI》，是因為我對音樂、
+                角色設計以及遊戲中的故事很有興趣。
+                在整理角色與團體資料的過程中，
+                我發現每一個團體都有不同的特色與故事。
+            </p>
+
+            <p>
+                透過這次網頁製作，我不只是認識自己喜歡的作品，
+                也學習如何從網路蒐集資料、整理資訊，
+                再利用 HTML 與 CSS 將內容呈現出來。
+            </p>
+
+            <p>
+                我希望未來可以繼續學習網頁設計，
+                將自己的興趣與資訊科技結合，
+                製作出更加完整且具有個人特色的作品。
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- 頁尾 -->
+
+    <footer>
+
+        © 2026 郭睿文 學習歷程檔案｜世界計畫
+
+        <br><br>
+
+        本頁為個人學習歷程與資料整理用途。
+        Project SEKAI 相關名稱、角色及圖片版權歸原權利人所有。
+
+    </footer>
+
+
+</body>
+
+</html>
