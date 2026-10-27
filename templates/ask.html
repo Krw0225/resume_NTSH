@@ -1,54 +1,86 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ask a Question</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-        section {
-            margin: 20px;
-        }
-        .form-box {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>字典</h1>
-    </header>
-    <section>
-        <div class="form-box">
-            <form action="/ask" method="post">
-                <label for="question">中文:</label><br>
-                <input type="text" id="question" name="question" value="{{ question }}"><br><br>
-                
-                <!-- 動態顯示目前語言名稱（韓文 / 日文） -->
-                <label for="answer">
-                    {% if target_lang == 'ja' %}日文{% else %}韓文{% endif %}:
-                </label><br>
-                <input type="text" id="answer" name="answer" readonly value="{{ answer }}"><br><br>
-                
-                <!-- 按鈕傳送對應的 target_lang 參數 -->
-                <button type="submit" name="target_lang" value="ko">中翻韓</button>
-                <button type="submit" name="target_lang" value="ja">中翻日</button>
-                <input type="button" value="回首頁" onclick="window.location.href='/'">
-            </form>
-        </div>
-    </section>
-</body>
-</html>
+# =========================
+# 中韓 / 中日字典 (字典查詢)
+# =========================
+
+@app.route('/ask', methods=['GET', 'POST'])
+def ask():
+
+    if request.method == 'POST':
+
+        question1 = request.form.get('question', '').strip()
+        target_lang = request.form.get('target_lang', 'ko')
+
+        if target_lang == 'ja':
+            dictionary = zh_ja_dict
+            lang_name = "日文"
+        else:
+            dictionary = zh_ko_dict
+            lang_name = "韓文"
+
+        # 1. 檢查使用者是否有輸入文字
+        if not question1:
+            answer1 = f"請輸入要查詢的中文單字（可切換為{lang_name}）。"
+        else:
+            # 2. 有輸入才查詢字典
+            answer1 = dictionary.get(
+                question1,
+                f"抱歉，我目前沒有這個詞的{lang_name}對應。"
+            )
+
+        return render_template(
+            'ask.html',
+            question=question1,
+            answer=answer1,
+            target_lang=target_lang
+        )
+
+    return render_template(
+        'ask.html',
+        question="",
+        answer="",
+        target_lang="ko"
+    )
+
+
+# =========================
+# 課外活動
+# =========================
+
+@app.route('/activities', methods=['GET', 'POST'])
+def activities():
+
+    if request.method == 'POST':
+
+        question = request.form.get('question', '').strip()
+        target_lang = request.form.get('target_lang', 'ko')
+
+        if target_lang == 'ja':
+            dictionary = zh_ja_dict
+            lang_name = "日文"
+        else:
+            dictionary = zh_ko_dict
+            lang_name = "韓文"
+
+        # 1. 檢查使用者是否有輸入文字
+        if not question:
+            answer1 = f"請輸入要查詢的中文單字（可切換為{lang_name}）。"
+        else:
+            # 2. 有輸入才查詢字典
+            answer1 = dictionary.get(
+                question,
+                f"抱歉，我目前沒有這個詞的{lang_name}對應。"
+            )
+
+        return render_template(
+            'activities.html',
+            question=question,
+            answer=answer1,
+            target_lang=target_lang
+        )
+
+    return render_template(
+        'activities.html',
+        question="",
+        answer="",
+        target_lang="ko"
+    )
