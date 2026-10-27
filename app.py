@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 
 # =========================
-# 中韓翻譯題庫
+# 中韓 / 中日翻譯題庫
 # =========================
 
 zh_ko_dict = {
@@ -20,6 +20,20 @@ zh_ko_dict = {
     "朋友": "친구",
     "家人": "가족",
     "愛": "사랑"
+}
+
+zh_ja_dict = {
+    "你好": "こんにちは",
+    "안녕하세요": "こんにちは",
+    "謝謝": "ありがとうございます",
+    "對不起": "すみません",
+    "早安": "おはようございます",
+    "晚安": "おやすみなさい",
+    "老師": "先生",
+    "學生": "学生",
+    "朋友": "友達",
+    "家人": "家族",
+    "愛": "愛"
 }
 
 
@@ -51,23 +65,34 @@ def ask():
     if request.method == 'POST':
 
         question1 = request.form.get('question', '').strip()
+        # 取得表單傳送的目標語言 (預設 ko)
+        target_lang = request.form.get('target_lang', 'ko')
+
+        if target_lang == 'ja':
+            dictionary = zh_ja_dict
+            lang_name = "日文"
+        else:
+            dictionary = zh_ko_dict
+            lang_name = "韓文"
 
         # 查詢題庫
-        answer1 = zh_ko_dict.get(
+        answer1 = dictionary.get(
             question1,
-            "抱歉，我目前沒有這個詞的韓文對應。"
+            f"抱歉，我目前沒有這個詞的{lang_name}對應。"
         )
 
         return render_template(
             'ask.html',
             question=question1,
-            answer=answer1
+            answer=answer1,
+            target_lang=target_lang
         )
 
     return render_template(
         'ask.html',
         question="",
-        answer=""
+        answer="",
+        target_lang="ko"
     )
 
 
@@ -85,18 +110,32 @@ def activities():
             ''
         ).strip()
 
-        answer1 = "抱歉，我目前沒有這個詞的韓文對應。"
+        target_lang = request.form.get('target_lang', 'ko')
+
+        if target_lang == 'ja':
+            dictionary = zh_ja_dict
+            lang_name = "日文"
+        else:
+            dictionary = zh_ko_dict
+            lang_name = "韓文"
+
+        answer1 = dictionary.get(
+            question,
+            f"抱歉，我目前沒有這個詞的{lang_name}對應。"
+        )
 
         return render_template(
             'activities.html',
             question=question,
-            answer=answer1
+            answer=answer1,
+            target_lang=target_lang
         )
 
     return render_template(
         'activities.html',
         question="",
-        answer=""
+        answer="",
+        target_lang="ko"
     )
 
 
