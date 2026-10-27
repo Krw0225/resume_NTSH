@@ -1,78 +1,222 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ask a Question</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            /* 加入背景顏色切換的平滑過渡效果 */
-            transition: background-color 0.4s ease;
-        }
+from flask import Flask, request, render_template
+import requests
 
-        /* 韓文模式背景色 (淺藍) */
-        body.lang-ko {
-            background-color: #e8f4f8;
-        }
+app = Flask(__name__)
 
-        /* 日文模式背景色 (淺粉) */
-        body.lang-ja {
-            background-color: #fce4ec;
-        }
 
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-        section {
-            margin: 20px;
-        }
-        .form-box {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-    </style>
-</head>
-<!-- 透過 Jinja2 判斷，在頁面載入時自動設定對應的背景色 class -->
-<body class="{% if target_lang == 'ja' %}lang-ja{% else %}lang-ko{% endif %}">
-    <header>
-        <h1>字典</h1>
-    </header>
-    <section>
-        <div class="form-box">
-            <form action="/ask" method="post">
-                <label for="question">中文:</label><br>
-                <input type="text" id="question" name="question" value="{{ question }}"><br><br>
-                
-                <!-- 動態顯示目前語言名稱（韓文 / 日文） -->
-                <label for="answer">
-                    {% if target_lang == 'ja' %}日文{% else %}韓文{% endif %}:
-                </label><br>
-                <input type="text" id="answer" name="answer" readonly value="{{ answer }}"><br><br>
-                
-                <!-- 點擊時透過 onclick 觸發 JavaScript 切換背景顏色 -->
-                <button type="submit" name="target_lang" value="ko" onclick="changeBg('ko')">中翻韓</button>
-                <button type="submit" name="target_lang" value="ja" onclick="changeBg('ja')">中翻日</button>
-                <input type="button" value="回首頁" onclick="window.location.href='/'">
-            </form>
-        </div>
-    </section>
+# =========================
+# 中韓 / 中日翻譯題庫
+# =========================
 
-    <script>
-        function changeBg(lang) {
-            if (lang === 'ja') {
-                document.body.className = 'lang-ja';
-            } else {
-                document.body.className = 'lang-ko';
-            }
-        }
-    </script>
-</body>
-</html>
+zh_ko_dict = {
+    "你好": "안녕하세요",
+    "안녕하세요": "你好",
+    "謝謝": "감사합니다",
+    "對不起": "죄송합니다",
+    "早安": "좋은 아침",
+    "晚安": "안녕히 주무세요",
+    "老師": "선생님",
+    "學生": "학생",
+    "朋友": "친구",
+    "家人": "가족",
+    "愛": "사랑"
+}
+
+zh_ja_dict = {
+    "你好": "こんにちは",
+    "안녕하세요": "こんにちは",
+    "謝謝": "ありがとうございます",
+    "對不起": "すみません",
+    "早安": "おはようございます",
+    "晚安": "おやすみなさい",
+    "老師": "先生",
+    "學生": "学生",
+    "朋友": "友達",
+    "家人": "家族",
+    "愛": "愛"
+}
+
+
+# =========================
+# 首頁
+# =========================
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
+# =========================
+# 競賽經驗
+# =========================
+
+@app.route('/competition')
+def competition():
+    return render_template('competition.html')
+
+
+# =========================
+# 中韓 / 中日字典 (字典查詢)
+# =========================
+
+@app.route('/ask', methods=['GET', 'POST'])
+def ask():
+
+    if request.method == 'POST':
+
+        question1 = request.form.get('question', '').strip()
+        target_lang = request.form.get('target_lang', 'ko')
+
+        if target_lang == 'ja':
+            dictionary = zh_ja_dict
+            lang_name = "日文"
+        else:
+            dictionary = zh_ko_dict
+            lang_name = "韓文"
+
+        # 關鍵點：沒輸入字時不查字典，顯示親切提示
+        if not question1:
+            answer1 = f"請輸入要查詢的中文單字。"
+        else:
+            answer1 = dictionary.get(
+                question1,
+                f"抱歉，我目前沒有這個詞的{lang_name}對應。"
+            )
+
+        return render_template(
+            'ask.html',
+            question=question1,
+            answer=answer1,
+            target_lang=target_lang
+        )
+
+    return render_template(
+        'ask.html',
+        question="",
+        answer="",
+        target_lang="ko"
+    )
+
+
+# =========================
+# 課外活動
+# =========================
+
+@app.route('/activities', methods=['GET', 'POST'])
+def activities():
+
+    if request.method == 'POST':
+
+        question = request.form.get('question', '').strip()
+        target_lang = request.form.get('target_lang', 'ko')
+
+        if target_lang == 'ja':
+            dictionary = zh_ja_dict
+            lang_name = "日文"
+        else:
+            dictionary = zh_ko_dict
+            lang_name = "韓文"
+
+        # 關鍵點：沒輸入字時顯示提示訊息
+        if not question:
+            answer1 = "請輸入要查詢的中文單字。"
+        else:
+            answer1 = dictionary.get(
+                question,
+                f"抱歉，我目前沒有這個詞的{lang_name}對應。"
+            )
+
+        return render_template(
+            'activities.html',
+            question=question,
+            answer=answer1,
+            target_lang=target_lang
+        )
+
+    return render_template(
+        'activities.html',
+        question="",
+        answer="",
+        target_lang="ko"
+    )
+
+
+# =========================
+# 股票查詢
+# =========================
+
+@app.route('/stock', methods=['GET', 'POST'])
+def stock():
+
+    if request.method == 'POST':
+
+        stock_no = request.form.get('question', '').strip()
+
+        if not stock_no:
+            return render_template(
+                'stock.html',
+                question="",
+                answer="請輸入股票代號，例如：2330"
+            )
+
+        try:
+            url = f"https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&stockNo={stock_no}"
+            headers = {'User-Agent': 'Mozilla/5.0'}
+            res = requests.get(url, headers=headers, timeout=10)
+
+            data = res.json()
+
+            if data and data.get("stat") == "OK" and "data" in data and len(data["data"]) > 0:
+                latest_data = data["data"][-1]
+                answer = latest_data[6]
+            else:
+                answer = "查無資料，請確認股票代號是否正確。"
+
+        except Exception:
+            answer = "查詢股票時發生錯誤，請稍後再試。"
+
+        return render_template(
+            'stock.html',
+            question=stock_no,
+            answer=answer
+        )
+
+    return render_template(
+        'stock.html',
+        question="",
+        answer=""
+    )
+
+
+# =========================
+# 其他靜態頁面
+# =========================
+
+@app.route('/leadership')
+def leadership():
+    return render_template('leadership.html')
+
+@app.route('/club')
+def club():
+    return render_template('club.html')
+
+@app.route('/electives')
+def electives():
+    return render_template('electives.html')
+
+@app.route('/ai')
+def ai():
+    return render_template('ai.html')
+
+@app.route('/world-project')
+def world_project():
+    return render_template('world-project.html')
+
+
+# =========================
+# 啟動 Flask
+# =========================
+
+if __name__ == '__main__':
+    app.run(debug=True)
+    
