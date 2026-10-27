@@ -36,9 +36,16 @@
             <form action="/ask" method="post">
                 <label for="question">中文:</label><br>
                 <input type="text" id="question" name="question" value="{{ question }}"><br><br>
-                <label for="answer">韓文:</label><br>
+                
+                <!-- 動態顯示目前語言名稱（韓文 / 日文） -->
+                <label for="answer">
+                    {% if target_lang == 'ja' %}日文{% else %}韓文{% endif %}:
+                </label><br>
                 <input type="text" id="answer" name="answer" readonly value="{{ answer }}"><br><br>
-                <input type="submit" value="送出">
+                
+                <!-- 按鈕傳送對應的 target_lang 參數 -->
+                <button type="submit" name="target_lang" value="ko">中翻韓</button>
+                <button type="submit" name="target_lang" value="ja">中翻日</button>
                 <input type="button" value="回首頁" onclick="window.location.href='/'">
             </form>
         </div>
